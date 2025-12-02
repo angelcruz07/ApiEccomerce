@@ -47,4 +47,15 @@ export class UserService {
       return updatedUser;
   }
 
+  public async deleteUser(userId: number): Promise<void> {
+    const userExists = await User.findByPk(userId);
+    if (!userExists) {
+      throw new Error("User not found");
+    }
+
+    await User.destroy({
+      where: { id: userId },
+    });
+  }
+
 }
